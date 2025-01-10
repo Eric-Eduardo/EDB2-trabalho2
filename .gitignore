@@ -1,0 +1,51 @@
+# Arquivos de objetos
+*.o
+*.obj
+
+# Arquivos de executáveis
+*.exe
+*.out
+*.app
+*.bin
+*.elf
+
+# Logs e debugging
+*.log
+*.trace
+
+# Arquivos temporários e de backup
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.~*
+
+# Arquivos de configuração do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados por IDEs/editores
+*.vscode/
+.idea/
+*.code-workspace
+
+# Arquivos gerados por compiladores e ferramentas
+*.gcda
+*.gcno
+*.gcov
+*.gch
+
+# Arquivos de bibliotecas e links
+*.a
+*.so
+*.dll
+*.lib
+*.dylib
+
+# Arquivos de cobertura de código
+coverage/
+*.gcov
+
+# Arquivos criados por o comando make
+Makefile~
