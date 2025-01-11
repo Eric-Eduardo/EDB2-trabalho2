@@ -4,7 +4,8 @@
 #define AVL_H
 
 typedef struct Avl{
-    int dado;
+    char* chave;
+    int dado[4]; // [x_inicio, y_inicio, x_final, y_final]
     struct Avl* esquerdo;
     struct Avl* direito;
     int altura;
