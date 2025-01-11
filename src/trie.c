@@ -32,7 +32,7 @@ void inserir(Trie *raiz, const char *palavra) {
 
     no_atual->fim_da_palavra = true;
 
-    printf("%s inserida na Trie\n", palavra);
+    // printf("%s inserida na Trie\n", palavra);
 }
 
 // Busca palaras na Trie para verificar validade
@@ -51,12 +51,10 @@ bool buscar(Trie *raiz, const char *palavra) {
     }
 
     return no_atual->fim_da_palavra;
-
 }
 
 void percorrer_trie(Trie *raiz, char *buffer, int depth) {
     if (raiz != NULL) {
-
         if (raiz->fim_da_palavra) {
             buffer[depth] = '\0';
             printf("%s\n", buffer);
@@ -80,8 +78,9 @@ void liberar_trie(Trie *raiz) {
     if (raiz == NULL)
         return;
 
-    for (int i = 0; i < ALFABETO; i++)
+    for (int i = 0; i < ALFABETO; i++) {
         liberar_trie(raiz->filhos[i]);
+    }
 
     free(raiz);
 }
