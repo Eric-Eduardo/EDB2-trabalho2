@@ -6,7 +6,7 @@
 #include "./avl.h"
 
 // Ler o tabuleiro do arquivo tabuleiro.txt
-void ler_tabuleiro(); 
+void ler_tabuleiro(char** tabuleiro); 
 
 // ler o arquivo palavras.txt contendo as possíveis palavras e armazená-las na Trie
 void ler_palavras(Trie* trie);

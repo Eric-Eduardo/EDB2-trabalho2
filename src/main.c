@@ -8,29 +8,12 @@ int main() {
     printf(
         "+----------------------------+\n"
         "|        CAÇA PALAVRAS       |\n"
-        "+----------------------------+\n\n\n");
+        "+----------------------------+\n");
 
     int option = -1;
 
     Trie* trie = criar_no_trie();
-
-    // const char* palavra1 = "carro";
-    // const char* palavra2 = "calo";
-    // const char* palavra3 = "carteira";
-    // const char* palavra4 = "barata";
-
-    // char buffer[100];
-
-    // inserir(jogo->possiveis_palavras, palavra1);
-    // inserir(jogo->possiveis_palavras, palavra2);
-    // inserir(jogo->possiveis_palavras, palavra3);
-    // inserir(jogo->possiveis_palavras, palavra4);
-
-    // char buffer[100];
-    // percorrer_trie(jogo->possiveis_palavras, buffer, 0);
-    // liberar_trie(jogo->possiveis_palavras);
-
-    // free(jogo);
+    char** tabuleiro = NULL;
 
     while (option != 0) {
         printf("\nMenu:\n");
@@ -46,7 +29,8 @@ int main() {
 
         switch (option) {
         case 1:
-            ler_palavras(trie);
+            // ler_palavras(trie);
+            ler_tabuleiro(&tabuleiro);
             break;
         case 2:
             printf("Buscand palavras\n");
@@ -65,26 +49,23 @@ int main() {
         case 0:
             liberar_trie(trie);
             free(trie);
+
+            printf("Limpando\n");
+            if (tabuleiro != NULL) {
+                for (int i = 0; i < 10; i++) {
+                    printf("%s\n", tabuleiro[i]);
+                }
+            } else {
+                printf("Tabuleiro nulo");
+            }
+
+            free(tabuleiro);
+
             break;
         default:
             printf("Opção inválida!\n");
             break;
         }
     }
-
-    // Trie *trie = criar_no_trie();
-
-    // const char* palavra1 = "carro";
-    // const char* palavra2 = "calo";
-    // const char* palavra3 = "carteira";
-    // const char* palavra4 = "barata";
-
-    // inserir(trie, palavra1);
-    // inserir(trie, palavra2);
-    // inserir(trie, palavra3);
-    // inserir(trie, palavra4);
-
-    // liberar_trie(trie);
-
     return 0;
 }
