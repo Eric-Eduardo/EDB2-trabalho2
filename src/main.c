@@ -33,10 +33,13 @@ int main() {
             ler_tabuleiro(&tabuleiro);
             break;
         case 2:
-            printf("Buscand palavras\n");
+            if (tabuleiro != NULL)
+                buscar_palavras(trie, tabuleiro, n_linhas, n_colunas, &avl);
+            else
+                printf("Carregue o tabuleiro antes de buscar palavras.\n");
             break;
         case 3:
-            imprimir_resultados(trie);
+            imprimir_resultados(avl);
             break;
         case 4:
             printf(
