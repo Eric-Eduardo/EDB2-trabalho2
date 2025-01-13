@@ -4,78 +4,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-void ler_tabuleiro(char** tabuleiro) {
-    printf("Carregando palavras...\n");
+// Lê o tabuleiro do arquivo e aloca dinamicamente
+char **ler_tabuleiro(int *n_linhas, int *n_colunas) {
+    printf("Carregando tabuleiro...\n");
 
-    FILE* arquivo = fopen("./tabuleiro.txt", "r");
-
+    FILE *arquivo = fopen("./tabuleiro.txt", "r");
     if (arquivo == NULL) {
         perror("Erro ao abrir o arquivo");
-        return;
+        return NULL;
     }
 
     char linha[512];
-    char* letra;
-
-    int n_linhas = 0;
-    int n_colunas = 0;
-
     if (fgets(linha, sizeof(linha), arquivo) == NULL) {
-        return;
-    } else {
-        sscanf(linha, "%d %d", &n_colunas, &n_linhas);
-        tabuleiro = (char**)malloc(n_linhas * sizeof(char*));
+        fclose(arquivo);
+        return NULL;
     }
 
-    for (int y = 0; y < n_linhas; y++) {
+    sscanf(linha, "%d %d", n_colunas, n_linhas);
+
+    char **tabuleiro = (char **)malloc(*n_linhas * sizeof(char *));
+    for (int y = 0; y < *n_linhas; y++) {
+        tabuleiro[y] = (char *)malloc(*n_colunas * sizeof(char));
         if (fgets(linha, sizeof(linha), arquivo) == NULL) {
             break;
         }
 
-        tabuleiro[y] = (char*)malloc(n_colunas * sizeof(char*));
-
-        // Remove o '\n'
         size_t len = strlen(linha);
         if (len > 0 && linha[len - 1] == '\n') {
             linha[len - 1] = '\0';
         }
 
-        
-        letra = strtok(linha, " ");
-
-        // Separar/obter cada letra da linha do tableiro;
-
-        for (int x = 0; x < n_colunas; x++) {
-            if (linha == NULL) {
+        char *letra = strtok(linha, " ");
+        for (int x = 0; x < *n_colunas; x++) {
+            if (letra == NULL) {
                 break;
             }
-
             tabuleiro[y][x] = *letra;
-
             letra = strtok(NULL, " ");
         }
-
-        printf("%s\n", tabuleiro[y]);
     }
 
-    /*
-        while (1) {
-            if (fgets(linha, sizeof(linha), arquivo) == NULL) {
-                break;
-            }
-
-            // Remove o '\n'
-            size_t len = strlen(linha);
-            if (len > 0 && linha[len - 1] == '\n') {
-                linha[len - 1] = '\0';
-            }
-
-            printf("%s\n", linha);
-        }
-
-        fclose(arquivo);
-        printf("Carregamento concluído!\n");
-    */
+    fclose(arquivo);
+    printf("Tabuleiro carregado com sucesso!\n");
+    return tabuleiro;
 }
 
 // ler o arquivo palavras.txt contendo as possíveis palavras e armazená-las na Trie
