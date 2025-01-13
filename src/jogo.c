@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 // Lê o tabuleiro do arquivo e aloca dinamicamente
 char **ler_tabuleiro(int *n_linhas, int *n_colunas) {
@@ -81,12 +82,58 @@ void ler_palavras(Trie* trie) {
 }
 
 // Buscar automaticamente as palavras na tabuleiro, verificando em todas as direções e em ordem direta e inversa. Caso validadda, inseri-la na AVL
-void bucar_palavras() {
-    printf("Em construção...");
+void buscar_palavras(Trie* trie, char** tabuleiro, int n_linhas, int n_colunas, Avl** avl) {
+    printf("Buscando palavras...\n");
+    char palavra[1000];
+
+    // Percorrer cada célula do tabuleiro como ponto inicial
+    for (int y = 0; y < n_linhas; y++) {
+        for (int x = 0; x < n_colunas; x++) {
+            // Explorando as palavras em todas as direções
+            for (int dy = -1; dy <= 1; dy++) {
+                for (int dx = -1; dx <= 1; dx++) {
+                    if (dy == 0 && dx == 0)
+                        continue;
+
+                    int len = 0, ny = y, nx = x;
+
+                    while (ny >= 0 && ny < n_linhas && nx >= 0 && nx < n_colunas) {
+                        // Converte cada letra para minúsculas ao formar a palavra
+                        palavra[len++] = tolower(tabuleiro[ny][nx]);
+                        palavra[len] = '\0';
+
+                        if (buscar(trie, palavra)) {
+                            // Insere a palavra encontrada na AVL
+                            printf("Palavra encontrada: %s\n", palavra);
+                            *avl = inserir_no(*avl, palavra);
+                        }
+
+                        ny += dy;
+                        nx += dx;
+                    }
+                }
+            }
+        }
+    }
+
+    printf("Busca concluída!\n");
 }
 
-// Exibir as palavras encontradas, armazenadas na AVL
-void imprimir_resultados(Trie* trie) {
-    char buffer[100];
-    percorrer_trie(trie, buffer, 0);
+void imprimir_em_ordem(Avl* raiz) {
+    if (raiz != NULL) {
+        imprimir_em_ordem(raiz->esquerdo);
+        printf("%s\n", raiz->chave);
+        imprimir_em_ordem(raiz->direito);
+    }
 }
+
+// Atualização no case 3 para usar AVL
+void imprimir_resultados(Avl* avl) {
+    if (avl == NULL) {
+        printf("Nenhuma palavra encontrada.\n");
+    } else {
+        printf("Palavras encontradas:\n");
+        imprimir_em_ordem(avl);
+    }
+}
+
