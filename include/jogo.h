@@ -6,15 +6,18 @@
 #include "./avl.h"
 
 // Ler o tabuleiro do arquivo tabuleiro.txt
-void ler_tabuleiro(char** tabuleiro); 
+char** ler_tabuleiro(int *n_linhas, int *n_colunas); 
 
 // ler o arquivo palavras.txt contendo as possíveis palavras e armazená-las na Trie
 void ler_palavras(Trie* trie);
 
 // Buscar automaticamente as palavras na tabuleiro, verificando em todas as direções e em ordem direta e inversa. Caso validadda, inseri-la na AVL
-void bucar_palavras();
+void buscar_palavras(Trie* trie, Avl* avl);
 
 // Exibir as palavras encontradas, armazenadas na AVL
-void imprimir_resultados();
+void imprimir_resultados(Trie *trie);
+
+// Mostrar as dados do jogo (palavras que serão procuradas e o tabuleiro)
+void mostrarJogo(char** tabuleiro, int n_linhas, int n_colunas, Trie* trie);
 
 #endif
